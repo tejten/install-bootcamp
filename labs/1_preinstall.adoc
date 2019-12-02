@@ -1,0 +1,97 @@
+[root@tej-bcamp-1 ~]# sysctl vm.swappiness
+vm.swappiness = 1
+[root@tej-bcamp-1 ~]# df -k
+Filesystem     1K-blocks    Used Available Use% Mounted on
+/dev/xvda1     104846316 1411612 103434704   2% /
+devtmpfs         7594272       0   7594272   0% /dev
+tmpfs            7616828       0   7616828   0% /dev/shm
+tmpfs            7616828   16876   7599952   1% /run
+tmpfs            7616828       0   7616828   0% /sys/fs/cgroup
+/dev/xvdb       39294212   32944  39261268   1% /mnt
+tmpfs            1523368       0   1523368   0% /run/user/0
+[root@tej-bcamp-1 ~]# more /etc/fstab
+
+#
+# /etc/fstab
+# Created by anaconda on Sun May 13 22:30:46 2018
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+UUID=eaadd3f0-e151-4950-a4ba-49ae6f413224 /                       xfs     defaults        0 0
+/dev/xvdb	/mnt	auto	defaults,nofail,comment=cloudconfig	0	2
+
+[root@tej-bcamp-1 ~]# mount | grep ext
+[root@tej-bcamp-1 ~]#
+
+[root@tej-bcamp-1 ~]# cat /proc/cmdline
+BOOT_IMAGE=/boot/vmlinuz-3.10.0-862.2.3.el7.x86_64 root=UUID=eaadd3f0-e151-4950-a4ba-49ae6f413224 ro console=tty0 crashkernel=auto console=ttyS0,115200 transparent_hugepage=never
+[root@tej-bcamp-1 ~]# 
+
+[root@tej-bcamp-1 ~]# ifconfig 
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 9001
+        inet 10.65.204.219  netmask 255.255.240.0  broadcast 10.65.207.255
+        inet6 fe80::82d:62ff:fe47:5b59  prefixlen 64  scopeid 0x20<link>
+        ether 0a:2d:62:47:5b:59  txqueuelen 1000  (Ethernet)
+        RX packets 1325  bytes 130525 (127.4 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 1055  bytes 191344 (186.8 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 6  bytes 416 (416.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 6  bytes 416 (416.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+
+[root@tej-bcamp-1 ~]# getent hosts
+127.0.0.1       localhost localhost.localdomain localhost4 localhost4.localdomain4
+127.0.0.1       localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+[root@tej-bcamp-1 ~]# service nscd status
+Redirecting to /bin/systemctl status nscd.service
+● nscd.service - Name Service Cache Daemon
+   Loaded: loaded (/usr/lib/systemd/system/nscd.service; enabled; vendor preset: disabled)
+   Active: active (running) since Mon 2019-12-02 12:53:26 EST; 35min ago
+  Process: 544 ExecStart=/usr/sbin/nscd $NSCD_OPTIONS (code=exited, status=0/SUCCESS)
+ Main PID: 551 (nscd)
+   CGroup: /system.slice/nscd.service
+           └─551 /usr/sbin/nscd
+
+Dec 02 12:53:26 tej-bcamp-1.vpc.cloudera.com nscd[551]: 551 monitoring file `/etc/hosts` (4)
+Dec 02 12:53:26 tej-bcamp-1.vpc.cloudera.com nscd[551]: 551 monitoring directory `/etc` (2)
+Dec 02 12:53:26 tej-bcamp-1.vpc.cloudera.com nscd[551]: 551 monitoring file `/etc/resolv.conf` (5)
+Dec 02 12:53:26 tej-bcamp-1.vpc.cloudera.com nscd[551]: 551 monitoring directory `/etc` (2)
+Dec 02 12:53:26 tej-bcamp-1.vpc.cloudera.com nscd[551]: 551 monitoring file `/etc/services` (6)
+Dec 02 12:53:26 tej-bcamp-1.vpc.cloudera.com nscd[551]: 551 monitoring directory `/etc` (2)
+Dec 02 12:53:26 tej-bcamp-1.vpc.cloudera.com nscd[551]: 551 disabled inotify-based monitoring for file `/etc/netgroup': No such file or directory
+Dec 02 12:53:26 tej-bcamp-1.vpc.cloudera.com nscd[551]: 551 stat failed for file `/etc/netgroup'; will try again later: No such file or directory
+Dec 02 12:53:26 tej-bcamp-1.vpc.cloudera.com systemd[1]: Started Name Service Cache Daemon.
+Dec 02 12:53:45 tej-bcamp-1.vpc.cloudera.com nscd[551]: 551 checking for monitored file `/etc/netgroup': No such file or directory
+
+
+[root@tej-bcamp-1 ~]# service ntpd status
+Redirecting to /bin/systemctl status ntpd.service
+● ntpd.service - Network Time Service
+   Loaded: loaded (/usr/lib/systemd/system/ntpd.service; disabled; vendor preset: disabled)
+   Active: active (running) since Mon 2019-12-02 13:11:54 EST; 17min ago
+  Process: 1595 ExecStart=/usr/sbin/ntpd -u ntp:ntp $OPTIONS (code=exited, status=0/SUCCESS)
+ Main PID: 1596 (ntpd)
+   CGroup: /system.slice/ntpd.service
+           └─1596 /usr/sbin/ntpd -u ntp:ntp -g
+
+Dec 02 13:11:54 tej-bcamp-1.vpc.cloudera.com ntpd[1596]: Listen normally on 3 eth0 10.65.204.219 UDP 123
+Dec 02 13:11:54 tej-bcamp-1.vpc.cloudera.com ntpd[1596]: Listen normally on 4 lo ::1 UDP 123
+Dec 02 13:11:54 tej-bcamp-1.vpc.cloudera.com ntpd[1596]: Listen normally on 5 eth0 fe80::82d:62ff:fe47:5b59 UDP 123
+Dec 02 13:11:54 tej-bcamp-1.vpc.cloudera.com ntpd[1596]: Listening on routing socket on fd #22 for interface updates
+Dec 02 13:11:54 tej-bcamp-1.vpc.cloudera.com ntpd[1596]: 0.0.0.0 c016 06 restart
+Dec 02 13:11:54 tej-bcamp-1.vpc.cloudera.com ntpd[1596]: 0.0.0.0 c012 02 freq_set kernel 0.000 PPM
+Dec 02 13:11:54 tej-bcamp-1.vpc.cloudera.com ntpd[1596]: 0.0.0.0 c011 01 freq_not_set
+Dec 02 13:12:01 tej-bcamp-1.vpc.cloudera.com ntpd[1596]: 0.0.0.0 c614 04 freq_mode
+Dec 02 13:27:38 tej-bcamp-1.vpc.cloudera.com ntpd[1596]: 0.0.0.0 0612 02 freq_set kernel -36.810 PPM
+Dec 02 13:27:38 tej-bcamp-1.vpc.cloudera.com ntpd[1596]: 0.0.0.0 0615 05 clock_sync
+
