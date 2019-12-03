@@ -1,0 +1,32 @@
+[root@tej-bcamp-1 jars]# sudo -u hdfs hdfs fsck /ccmanning/fivehundredmegfile -files -blocks
+Connecting to namenode via http://tej-bcamp-2.vpc.cloudera.com:50070/fsck?ugi=hdfs&files=1&blocks=1&path=%2Fccmanning%2Ffivehundredmegfile
+FSCK started by hdfs (auth:SIMPLE) from /10.65.204.219 for path /ccmanning/fivehundredmegfile at Tue Dec 03 13:55:35 EST 2019
+/ccmanning/fivehundredmegfile <dir>
+/ccmanning/fivehundredmegfile/_SUCCESS 0 bytes, 0 block(s):  OK
+
+/ccmanning/fivehundredmegfile/part-m-00000 25000000 bytes, 1 block(s):  OK
+0. BP-1333595044-10.65.203.151-1575323890613:blk_1073743831_3007 len=25000000 Live_repl=3
+
+/ccmanning/fivehundredmegfile/part-m-00001 25000000 bytes, 1 block(s):  OK
+0. BP-1333595044-10.65.203.151-1575323890613:blk_1073743830_3006 len=25000000 Live_repl=3
+
+Status: HEALTHY
+ Total size:	50000000 B
+ Total dirs:	1
+ Total files:	3
+ Total symlinks:		0
+ Total blocks (validated):	2 (avg. block size 25000000 B)
+ Minimally replicated blocks:	2 (100.0 %)
+ Over-replicated blocks:	0 (0.0 %)
+ Under-replicated blocks:	0 (0.0 %)
+ Mis-replicated blocks:		0 (0.0 %)
+ Default replication factor:	3
+ Average block replication:	3.0
+ Corrupt blocks:		0
+ Missing replicas:		0 (0.0 %)
+ Number of data-nodes:		4
+ Number of racks:		1
+FSCK ended at Tue Dec 03 13:55:35 EST 2019 in 3 milliseconds
+
+
+The filesystem under path '/ccmanning/fivehundredmegfile' is HEALTHY
