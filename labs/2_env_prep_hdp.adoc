@@ -1,0 +1,43 @@
+MariaDB [(none)]> SELECT VERSION();
++----------------+
+| VERSION()      |
++----------------+
+| 5.5.64-MariaDB |
++----------------+
+1 row in set (0.00 sec)
+
+MariaDB [(none)]> SHOW DATABASES
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| druid              |
+| hive               |
+| mysql              |
+| oozie              |
+| performance_schema |
+| ranger             |
+| rangerkms          |
+| registry           |
+| streamline         |
+| superset           |
++--------------------+
+11 rows in set (0.00 sec)
+
+
+[root@tej-bcamp-7 .ssh]# selinuxenabled; echo $?
+1
+[root@tej-bcamp-7 .ssh]# cat /etc/selinux/config
+
+# This file controls the state of SELinux on the system.
+# SELINUX= can take one of these three values:
+#     enforcing - SELinux security policy is enforced.
+#     permissive - SELinux prints warnings instead of enforcing.
+#     disabled - No SELinux policy is loaded.
+SELINUX=disabled
+# SELINUXTYPE= can take one of three two values:
+#     targeted - Targeted processes are protected,
+#     minimum - Modification of targeted policy. Only selected processes are protected. 
+#     mls - Multi Level Security protection.
+SELINUXTYPE=targeted
