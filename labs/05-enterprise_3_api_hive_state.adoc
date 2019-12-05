@@ -1,0 +1,95 @@
+## STATUS of HIVE
+[root@tej-bcamp-1 ~]# curl  -u  tejten:cloudera 'http://tej-bcamp-1.vpc.cloudera.com:7180/api/v2/clusters/Cluster%201/services/hive'
+{
+  "name" : "hive",
+  "type" : "HIVE",
+  "clusterRef" : {
+    "clusterName" : "cluster"
+  },
+  "serviceUrl" : "http://tej-bcamp-1.vpc.cloudera.com:7180/cmf/serviceRedirect/hive",
+  "serviceState" : "STOPPED",
+  "healthSummary" : "DISABLED",
+  "healthChecks" : [ {
+    "name" : "HIVE_HIVEMETASTORES_HEALTHY",
+    "summary" : "DISABLED"
+  }, {
+    "name" : "HIVE_HIVESERVER2S_HEALTHY",
+    "summary" : "DISABLED"
+  } ],
+  "configStale" : false,
+  "maintenanceMode" : false,
+  "maintenanceOwners" : [ ],
+  "displayName" : "Hive"
+}[root@tej-bcamp-1 ~]# 
+
+## Stop HIVE
+[root@tej-bcamp-1 ~]# curl -XPOST -u  tejten:cloudera 'http://tej-bcamp-1.vpc.cloudera.com:7180/api/v2/clusters/Cluster%201/services/hive/commands/stop'
+{
+  "id" : 255,
+  "name" : "Stop",
+  "startTime" : "2019-12-05T17:56:31.970Z",
+  "endTime" : "2019-12-05T17:56:31.970Z",
+  "active" : false,
+  "success" : false,
+  "resultMessage" : "At least one role must be started.",
+  "serviceRef" : {
+    "clusterName" : "cluster",
+    "serviceName" : "hive"
+  }
+}[root@tej-bcamp-1 ~]# 
+
+## Start HIVE
+[root@tej-bcamp-1 ~]# curl -XPOST -u  tejten:cloudera 'http://tej-bcamp-1.vpc.cloudera.com:7180/api/v2/clusters/Cluster%201/services/hive/commands/start'
+{
+  "id" : 256,
+  "name" : "Start",
+  "startTime" : "2019-12-05T17:58:19.766Z",
+  "active" : true,
+  "serviceRef" : {
+    "clusterName" : "cluster",
+    "serviceName" : "hive"
+  }
+}[root@tej-bcamp-1 ~]# curl -u  tejten:cloudera 'http://tej-bcamp-1.vpc.cloudera.com:7180/api/v2/clusters/Cluster%201/services/hive''
+{
+  "name" : "hive",
+  "type" : "HIVE",
+  "clusterRef" : {
+    "clusterName" : "cluster"
+  },
+  "serviceUrl" : "http://tej-bcamp-1.vpc.cloudera.com:7180/cmf/serviceRedirect/hive",
+  "serviceState" : "STARTING",
+  "healthSummary" : "DISABLED",
+  "healthChecks" : [ {
+    "name" : "HIVE_HIVEMETASTORES_HEALTHY",
+    "summary" : "DISABLED"
+  }, {
+    "name" : "HIVE_HIVESERVER2S_HEALTHY",
+    "summary" : "DISABLED"
+  } ],
+  "configStale" : false,
+  "maintenanceMode" : false,
+  "maintenanceOwners" : [ ],
+  "displayName" : "Hive"
+}[root@tej-bcamp-1 ~]# curl  -u  tejten:cloudera 'http://tej-bcamp-1.vpc.cloudera.com:7180/api/v2/clusters/Cluster%201/services/hive'
+{
+  "name" : "hive",
+  "type" : "HIVE",
+  "clusterRef" : {
+    "clusterName" : "cluster"
+  },
+  "serviceUrl" : "http://tej-bcamp-1.vpc.cloudera.com:7180/cmf/serviceRedirect/hive",
+  "serviceState" : "STARTED",
+  "healthSummary" : "GOOD",
+  "healthChecks" : [ {
+    "name" : "HIVE_HIVEMETASTORES_HEALTHY",
+    "summary" : "GOOD"
+  }, {
+    "name" : "HIVE_HIVESERVER2S_HEALTHY",
+    "summary" : "GOOD"
+  } ],
+  "configStale" : false,
+  "maintenanceMode" : false,
+  "maintenanceOwners" : [ ],
+  "displayName" : "Hive"
+}[root@tej-bcamp-1 ~]# 
+
